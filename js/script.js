@@ -132,3 +132,45 @@ $(window).load(function() {
 Carousel Expands over Hovering and On clicking play or pause video 
 *******************************************************************************************************************************/ 
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    let activeCard = null; // Track the currently expanded card
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        const video = card.querySelector("video");
+
+        card.addEventListener("mouseenter", () => {
+            // Collapse previously expanded card (if different)
+            if (activeCard && activeCard !== card) {
+                activeCard.style.width = "80px"; // Reset size
+                activeCard.style.transition = "width 0.5s ease-in-out"; // Smooth transition
+                const prevVideo = activeCard.querySelector("video");
+                prevVideo.pause(); // Pause previous video
+            }
+
+            // Expand the hovered card
+            card.style.transition = "width 0.5s ease-in-out"; // Smooth transition
+            card.style.width = "320px";
+            activeCard = card;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            if (activeCard === card) {
+                card.style.width = "80px"; // Collapse back
+                card.style.transition = "width 0.5s ease-in-out"; // Smooth transition
+                video.pause(); // Pause video
+                activeCard = null;
+            }
+        });
+
+        card.addEventListener("click", () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+    });
+});
