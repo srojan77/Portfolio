@@ -14,7 +14,7 @@ body {
 .carousel-container {
     display: flex;
     justify-content: flex-start;
-    margin: 0px 0px 50px 0px; /* determines margin of the carousel container, how close it is to the red container */
+    margin: 0px 0px 50px 0px;
     padding: 20px 0px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -25,35 +25,29 @@ body {
 .carousel-container .container {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap; /* Prevent vertical stacking */
-    overflow-x: auto;  /* Enable horizontal scroll */
+    flex-wrap: nowrap;
+    overflow-x: auto;
     overflow-y: hidden;
     gap: 5px;
     scroll-snap-type: x mandatory;
-    width: max-content; /* Expand container to fit all items */
+    width: max-content;
 }
 
 /* Card Styling */
 .card {
     position: relative;
-    flex: 0 0 auto; /* Prevent shrinking/wrapping */
-    cursor: pointer;
+    flex: 0 0 auto;
+    cursor: default;
     overflow: hidden;
     border-radius: 2rem;
     margin: 15px 10px;
     display: flex;
     align-items: flex-end;
     box-shadow: 0px 10px 10px -5px rgba(0,0,0,0.8);
-    width: 80px;
+    width: 280px; /* Fixed width */
     height: 90vh;
     max-height: 600px;
-    transition: width 0.5s ease-in-out;
-    scroll-snap-align: center; /*The center of the snap area of the box is aligned with the snap target of the scroll container */
-}
-
-/* Expand on Hover */
-.card:hover {
-    width: 320px;
+    scroll-snap-align: center;
 }
 
 /* Row inside Card */
@@ -85,10 +79,9 @@ body {
     overflow: hidden;
     height: 80px;
     width: 520px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition-delay: .3s;
-    transition: all .3s ease;
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
 }
 
 .description p {
@@ -100,22 +93,15 @@ body {
     text-transform: uppercase;
 }
 
-/* Show description when checked */
+/* Hide radio buttons */
 input {
     display: none;
 }
 
-input:checked + label .description {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
+/* Ensure all cards stay same width regardless of input */
+input:checked + label,
 input:not(:checked) + label {
-    width: 80px;
-}
-
-input:checked + label {
-    width: 320px;
+    width: 280px;
 }
 
 /* Video Background */
@@ -128,14 +114,10 @@ input:checked + label {
     object-fit: cover;
     z-index: -1;
     border-radius: 10px;
-}
-
-/* Expand carousel on hover */
-.card:hover .video-bg {
     opacity: 1;
 }
 
-/* 📌 Mobile Optimization */
+/* Mobile Optimization */
 @media screen and (max-width: 768px) {
     .carousel-container {
         overflow-x: scroll;
@@ -158,19 +140,18 @@ input:checked + label {
 
     .card {
         flex: 0 0 auto;
-        width: 45vw;
+        width: 220px;
         max-width: 220px;
         height: 85vh;
         max-height: 500px;
         border-radius: 2rem;
-        scroll-snap-align: center; /*The center of the snap area of the box is aligned with the snap target of the scroll container */
+        scroll-snap-align: center;
     }
 
-    /* Expand when selected or hovered */
     input:checked + label,
     .card:hover {
-        width: 55vw;
-        max-width: 270px;
+        width: 220px;
+        max-width: 220px;
     }
 
     .description {
